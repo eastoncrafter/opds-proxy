@@ -37,6 +37,8 @@ services:
     # You can also use environment variables to configure the container
     # environment:
     #   - OPDS__PORT=5228
+    #   - OPDS__COVER_SIZE_LIST=100
+    #   - OPDS__COVER_SIZE_DETAIL=400
     #   - OPDS__FEEDS__0__NAME=Some Feed
     #   - OPDS__FEEDS__0__URL=http://some-feed.com/opds
     #   - OPDS__FEEDS__0__AUTH__USERNAME=user
@@ -73,6 +75,9 @@ Most settings are defined in a `config.yml`.
 ```yml
 # Optional port to listen on (default 8080)
 port: 5228
+# Optional book cover sizes in pixels (defaults: list=75, detail=300)
+cover_size_list: 100      # Cover height in book list view (10-500px)
+cover_size_detail: 400    # Cover height in book detail view (10-1000px)
 # Optional Cookie Encryption Keys
 # If these keys aren't set, they are automatically re-generated and logged on startup.
 # When new keys are generated all existing cookies are no longer valid. 
