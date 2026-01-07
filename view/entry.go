@@ -58,6 +58,7 @@ type EntryViewModel struct {
 	ImageData       template.URL
 	Search          string
 	Navigation      []NavigationViewModel
+	CoverSize       int
 }
 
 // EntryLinkViewModel is a single link in the entry.html template.
@@ -84,6 +85,7 @@ func constructEntryVM(params EntryParams) (EntryViewModel, error) {
 		Author:          strings.Join(params.Entry.AuthorNames(), " & "),
 		Search:          navData.Search,
 		Navigation:      navData.Navigation,
+		CoverSize:       params.CoverSize,
 		// ImageURL: resolveHref(params.URL, params.Entry.Image()),
 	}
 

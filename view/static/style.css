@@ -155,7 +155,6 @@ select {
 
 .book-cover {
   display: inline-block;
-  height: 75px;
   margin-right: 1rem;
 }
 
@@ -163,7 +162,7 @@ select {
   display: inline-block;
   vertical-align: top;
   white-space: normal;
-  max-width: calc(100% - 3rem - 75px);
+  max-width: calc(100% - 12rem);
 }
 
 .book-title {
@@ -193,7 +192,7 @@ select {
 .book-details-info {
   display: inline-block;
   vertical-align: top;
-  max-width: calc(100% - 1.5rem - 200px);
+  max-width: calc(100% - 16rem);
 }
 
 .book-summary {

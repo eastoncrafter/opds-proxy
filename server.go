@@ -65,7 +65,7 @@ func NewServer(configData *ProxyConfig) (*Server, error) {
 	for i, f := range configData.Feeds {
 		adapted[i] = auth.FeedConfig{Name: f.Name, Url: f.Url, Auth: toAuthPtr(f.Auth)}
 	}
-	router.Handle("GET /feed", requestMiddleware(debounceMiddleware(handlers.Feed("tmp/", adapted, s, configData.DebugMode))))
+	router.Handle("GET /feed", requestMiddleware(debounceMiddleware(handlers.Feed("tmp/", adapted, s, configData.DebugMode, configData.CoverSizeList, configData.CoverSizeDetail))))
 
 	// Auth
 	router.Handle("/auth", requestMiddleware(handlers.Auth(s)))

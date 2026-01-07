@@ -14,6 +14,7 @@ type FeedViewModel struct {
 	Search     string
 	Navigation []NavigationViewModel
 	Links      []LinkViewModel
+	CoverSize  int
 }
 
 // NavigationData contains the common navigation and search data
@@ -90,6 +91,7 @@ func convertFeed(p *FeedParams) (FeedViewModel, error) {
 		Search:     navData.Search,
 		Navigation: navData.Navigation,
 		Links:      make([]LinkViewModel, 0),
+		CoverSize:  p.CoverSize,
 	}
 
 	for _, entry := range p.Feed.Entries {
