@@ -23,9 +23,9 @@
   <li class="book-item">
     <a href="?q={{.Href}}{{if not (empty .EntryID)}}&id={{.EntryID}}{{end}}">
       {{if .ImageURL}}
-      <img class="book-cover" src="?q={{.ImageURL}}" alt="{{.Title}}" height="40" />
+      <img class="book-cover" src="?q={{.ImageURL}}" alt="{{.Title}}" height="{{$.CoverSize}}" />
       {{else if .ImageData}}
-      <img class="book-cover" src="{{.ImageData}}" alt="{{.Title}}" height="40" />
+      <img class="book-cover" src="{{.ImageData}}" alt="{{.Title}}" height="{{$.CoverSize}}" />
       {{end}}
       <div class="book-info">
         <p class="book-title">{{.Title}}</p>

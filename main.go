@@ -25,10 +25,12 @@ var commit = "unknown"
 var date = "unknown"
 
 type ProxyConfig struct {
-	Port      string       `koanf:"port"`
-	Auth      AuthConfig   `koanf:"auth"`
-	Feeds     []FeedConfig `koanf:"feeds" `
-	DebugMode bool         `koanf:"debug"`
+	Port            string       `koanf:"port"`
+	Auth            AuthConfig   `koanf:"auth"`
+	Feeds           []FeedConfig `koanf:"feeds" `
+	DebugMode       bool         `koanf:"debug"`
+	CoverSizeList   int          `koanf:"cover_size_list"`
+	CoverSizeDetail int          `koanf:"cover_size_detail"`
 }
 
 type AuthConfig struct {
@@ -114,6 +116,14 @@ func main() {
 		config.Auth.BlockKey = blockKey
 	}
 
+	// Set default cover sizes if not specified
+	if config.CoverSizeList == 0 {
+		config.CoverSizeList = 75
+	}
+	if config.CoverSizeDetail == 0 {
+		config.CoverSizeDetail = 300
+	}
+
 	if err := config.Validate(); err != nil {
 		slog.Error("invalid configuration", slog.Any("error", err))
 		os.Exit(1)
@@ -185,6 +195,14 @@ func (c *ProxyConfig) Validate() error {
 		if feed.Url == "" {
 			return errors.New("feed.url is required")
 		}
+	}
+
+	if c.CoverSizeList < 10 || c.CoverSizeList > 500 {
+		return errors.New("cover_size_list must be between 10 and 500")
+	}
+
+	if c.CoverSizeDetail < 10 || c.CoverSizeDetail > 1000 {
+		return errors.New("cover_size_detail must be between 10 and 1000")
 	}
 
 	return nil

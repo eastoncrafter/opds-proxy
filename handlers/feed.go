@@ -27,21 +27,25 @@ import (
 )
 
 type FeedHandler struct {
-	outputDir  string
-	feeds      []auth.FeedConfig
-	s          *securecookie.SecureCookie
-	debug      bool
-	converters *convert.ConverterManager
-	mu         sync.Mutex
+	outputDir       string
+	feeds           []auth.FeedConfig
+	s               *securecookie.SecureCookie
+	debug           bool
+	converters      *convert.ConverterManager
+	coverSizeList   int
+	coverSizeDetail int
+	mu              sync.Mutex
 }
 
-func Feed(outputDir string, feeds []auth.FeedConfig, s *securecookie.SecureCookie, debug bool) http.HandlerFunc {
+func Feed(outputDir string, feeds []auth.FeedConfig, s *securecookie.SecureCookie, debug bool, coverSizeList, coverSizeDetail int) http.HandlerFunc {
 	h := &FeedHandler{
-		outputDir:  outputDir,
-		feeds:      feeds,
-		s:          s,
-		debug:      debug,
-		converters: convert.NewConverterManager(),
+		outputDir:       outputDir,
+		feeds:           feeds,
+		s:               s,
+		debug:           debug,
+		converters:      convert.NewConverterManager(),
+		coverSizeList:   coverSizeList,
+		coverSizeDetail: coverSizeDetail,
 	}
 	return h.ServeHTTP
 }
@@ -165,13 +169,14 @@ func (h *FeedHandler) serveAtom(w http.ResponseWriter, r *http.Request, resp *ht
 			Entry:            entry,
 			DeviceType:       deviceType,
 			ConverterManager: h.converters,
+			CoverSize:        h.coverSizeDetail,
 		}
 
 		view.Render(w, func(buf io.Writer) error { return view.Entry(buf, params) })
 		return nil
 	}
 
-	params := view.FeedParams{URL: url, Feed: feed}
+	params := view.FeedParams{URL: url, Feed: feed, CoverSize: h.coverSizeList}
 	view.Render(w, func(buf io.Writer) error { return view.Feed(buf, params) })
 	return nil
 }

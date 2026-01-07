@@ -17,9 +17,9 @@
 {{define "main"}}
 <div class="book-details">
   {{if .ImageURL}}
-  <img class="book-details-cover" src="?q={{.ImageURL}}" alt="{{.Title}}" height="300" />
+  <img class="book-details-cover" src="?q={{.ImageURL}}" alt="{{.Title}}" height="{{.CoverSize}}" />
   {{else if .ImageData}}
-  <img class="book-details-cover" src="{{.ImageData}}" alt="{{.Title}}" height="300" />
+  <img class="book-details-cover" src="{{.ImageData}}" alt="{{.Title}}" height="{{.CoverSize}}" />
   {{end}}
 
 

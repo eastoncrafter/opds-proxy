@@ -73,8 +73,9 @@ func Login(w io.Writer, p LoginParams) error {
 }
 
 type FeedParams struct {
-	URL  string
-	Feed *opds.Feed
+	URL         string
+	Feed        *opds.Feed
+	CoverSize   int
 }
 
 func Feed(w io.Writer, p FeedParams) error {
@@ -91,6 +92,7 @@ type EntryParams struct {
 	Entry            opds.Entry
 	DeviceType       device.DeviceType
 	ConverterManager *convert.ConverterManager
+	CoverSize        int
 }
 
 func Entry(w io.Writer, p EntryParams) error {
